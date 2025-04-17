@@ -6,10 +6,7 @@ public class EnemyMovement : MonoBehaviour
 
     private float _step = 0.05f;
 
-    private void OnEnable()
-    {
-        gameObject.GetComponent<Animator>().SetFloat("Speed", _step * _speed);
-    }
+    public float Speed => _speed * _step;
 
     private void Update()
     {
@@ -18,6 +15,6 @@ public class EnemyMovement : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * _step * _speed);
+        transform.Translate(Vector3.forward * Time.deltaTime * Speed);
     }
 }

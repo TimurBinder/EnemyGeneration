@@ -38,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator GetEnemy(float delay)
     {
-        while (true)
+        while (enabled)
         {
             Enemy enemy = _pool.Get();
             enemy.ExitedPlatform += _pool.Release;
@@ -50,9 +50,6 @@ public class EnemySpawner : MonoBehaviour
     {
         Transform randomStartPoint = _startPoints[Random.Range(0, _startPoints.Length)];
         enemy.gameObject.transform.position = randomStartPoint.position;
-        float maxRotationAngle = 180f;
-        enemy.gameObject.transform.rotation = Quaternion.Euler(0, Random.Range(-maxRotationAngle, maxRotationAngle), 0);
-        enemy.gameObject.SetActive(true);
     }
 
     private void ActionOnRelease(Enemy enemy) 
