@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
             actionOnGet: (obj) => ActionOnGet(obj),
             actionOnRelease: (obj) => ActionOnRelease(obj),
             actionOnDestroy: (obj) => Destroy(obj),
-    collectionCheck: true,
+            collectionCheck: true,
             maxSize: _maxSize,
             defaultCapacity: _defaultCapacity
         );
