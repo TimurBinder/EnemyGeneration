@@ -796,15 +796,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2454586923529475280, guid: 214e08cd5e5d74c458e2a81b7ec2c84c, type: 3}
   _startPoints:
-  - {fileID: 2062432571}
-  - {fileID: 68364714}
-  - {fileID: 1322484795}
-  - {fileID: 1282230032}
-  - {fileID: 572228368}
-  - {fileID: 641566437}
-  - {fileID: 1963910720}
-  - {fileID: 714637339}
-  - {fileID: 1366993681}
+  - {fileID: 2062432572}
+  - {fileID: 68364715}
+  - {fileID: 1322484796}
+  - {fileID: 1282230033}
+  - {fileID: 572228369}
+  - {fileID: 641566438}
+  - {fileID: 1963910721}
+  - {fileID: 714637340}
+  - {fileID: 1366993682}
   _defaultCapacity: 5
   _maxSize: 15
   _repeatRate: 2
