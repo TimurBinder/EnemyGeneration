@@ -5,7 +5,8 @@ using UnityEngine.Pool;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Enemy _prefab;
-    [SerializeField] private Transform[] _startPoints;
+    [SerializeField] private Transform _startPoint;
+    [SerializeField] private TargetPoint _targetPoint;
     [SerializeField] private int _defaultCapacity;
     [SerializeField] private int _maxSize;
     [SerializeField] private float _repeatRate;
@@ -41,21 +42,24 @@ public class EnemySpawner : MonoBehaviour
         while (enabled)
         {
             Enemy enemy = _pool.Get();
+            enemy.SetTarget(_targetPoint);
             enemy.ExitedPlatform += _pool.Release;
+            enemy.TargetAchieved += _pool.Release;
+            enemy.gameObject.SetActive(true);
             yield return new WaitForSeconds(delay);
         }
     }
 
     private void ActionOnGet(Enemy enemy)
     {
-        Transform randomStartPoint = _startPoints[Random.Range(0, _startPoints.Length)];
-        enemy.gameObject.transform.position = randomStartPoint.position;
+        enemy.gameObject.transform.position = _startPoint.position;
     }
 
     private void ActionOnRelease(Enemy enemy) 
     {
         enemy.gameObject.transform.rotation = Quaternion.identity;
         enemy.ExitedPlatform -= _pool.Release;
+        enemy.TargetAchieved -= _pool.Release;
         enemy.gameObject.SetActive(false);
     }
 }
