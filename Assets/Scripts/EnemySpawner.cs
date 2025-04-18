@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Enemy _prefab;
     [SerializeField] private Transform _startPoint;
-    [SerializeField] private TargetPoint _targetPoint;
+    [SerializeField] private TargetPoint[] _targetPoints;
     [SerializeField] private int _defaultCapacity;
     [SerializeField] private int _maxSize;
     [SerializeField] private float _repeatRate;
@@ -42,7 +42,8 @@ public class EnemySpawner : MonoBehaviour
         while (enabled)
         {
             Enemy enemy = _pool.Get();
-            enemy.SetTarget(_targetPoint);
+            TargetPoint randomTargetPoint = _targetPoints[Random.Range(0, _targetPoints.Length)];
+            enemy.SetTarget(randomTargetPoint);
             enemy.ExitedPlatform += _pool.Release;
             enemy.TargetAchieved += _pool.Release;
             enemy.gameObject.SetActive(true);

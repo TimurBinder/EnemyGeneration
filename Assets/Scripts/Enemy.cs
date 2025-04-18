@@ -4,14 +4,18 @@ using UnityEngine.Events;
 public class Enemy : MonoBehaviour
 {
     private TargetPoint _target;
-    private Collider _targetCollider;
 
     public event UnityAction<Enemy> ExitedPlatform;
     public event UnityAction<Enemy> TargetAchieved;
 
+    private void Update()
+    {
+        transform.LookAt(_target.transform);
+    }
+
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider == _targetCollider)
+        if (collider == _target.Collider)
             TargetAchieved.Invoke(this);
     }
 
@@ -24,7 +28,5 @@ public class Enemy : MonoBehaviour
     public void SetTarget(TargetPoint target)
     {
         _target = target;
-        transform.LookAt(_target.transform);
-        _targetCollider = _target.GetComponent<Collider>();
     }
 }
