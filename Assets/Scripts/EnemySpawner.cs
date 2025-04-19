@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Enemy _prefab;
     [SerializeField] private Transform _startPoint;
-    [SerializeField] private TargetPoint[] _targetPoints;
+    [SerializeField] private TargetPoint _targetPoint;
     [SerializeField] private int _defaultCapacity;
     [SerializeField] private int _maxSize;
     [SerializeField] private float _repeatRate;
@@ -17,8 +17,8 @@ public class EnemySpawner : MonoBehaviour
     {
         _pool = new ObjectPool<Enemy>(
             createFunc: () => CreateEnemy(),
-            actionOnGet: (obj) => ActionOnGet(obj),
-            actionOnRelease: (obj) => ActionOnRelease(obj),
+            actionOnGet: (obj) => OnActionGet(obj),
+            actionOnRelease: (obj) => OnActionRelease(obj),
             actionOnDestroy: (obj) => Destroy(obj),
             collectionCheck: true,
             maxSize: _maxSize,
@@ -42,8 +42,7 @@ public class EnemySpawner : MonoBehaviour
         while (enabled)
         {
             Enemy enemy = _pool.Get();
-            TargetPoint randomTargetPoint = _targetPoints[Random.Range(0, _targetPoints.Length)];
-            enemy.SetTarget(randomTargetPoint);
+            enemy.SetTarget(_targetPoint);
             enemy.ExitedPlatform += _pool.Release;
             enemy.TargetAchieved += _pool.Release;
             enemy.gameObject.SetActive(true);
@@ -51,12 +50,12 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void ActionOnGet(Enemy enemy)
+    private void OnActionGet(Enemy enemy)
     {
         enemy.gameObject.transform.position = _startPoint.position;
     }
 
-    private void ActionOnRelease(Enemy enemy) 
+    private void OnActionRelease(Enemy enemy) 
     {
         enemy.gameObject.transform.rotation = Quaternion.identity;
         enemy.ExitedPlatform -= _pool.Release;

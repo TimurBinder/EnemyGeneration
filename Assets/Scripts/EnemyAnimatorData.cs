@@ -1,11 +1,12 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class EnemyAnimatorData : MonoBehaviour
 {
+    public static readonly int Speed = Animator.StringToHash(nameof(Speed));
+
     private Animator _animator;
     private EnemyMovement _enemyMovement;
-
-    public static readonly int Speed = Animator.StringToHash(nameof(Speed));
 
     private void Awake()
     {

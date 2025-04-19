@@ -16,13 +16,19 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
         if (collider == _target.Collider)
-            TargetAchieved.Invoke(this);
+            TargetAchieved?.Invoke(this);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == _target)
+            TargetAchieved?.Invoke(this);
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.TryGetComponent<Platform>(out Platform platform))
-            ExitedPlatform.Invoke(this);
+            ExitedPlatform?.Invoke(this);
     }
 
     public void SetTarget(TargetPoint target)
