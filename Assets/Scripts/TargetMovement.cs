@@ -9,8 +9,6 @@ public class TargetMovement : MonoBehaviour
     private Vector3 _target;
     private float _step = 0.05f;
 
-    public float Speed => _speed * _step;
-
     private void Start()
     {
         _target = GetTarget();
@@ -28,7 +26,7 @@ public class TargetMovement : MonoBehaviour
                 transform.LookAt(_target);
             }
 
-            transform.Translate(Vector3.forward * Time.deltaTime * Speed);
+            transform.Translate(Vector3.forward * Time.deltaTime * _speed * _step);
 
             yield return null;
         }
